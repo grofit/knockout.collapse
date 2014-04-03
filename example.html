@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>Tabs Binding Example</title>
+	</head>
+	<body>
+		<script src="libs/knockout-2.3.0.min.js" type="text/javascript"></script>
+		<script src="libs/jquery-2.0.3.min.js" type="text/javascript"></script>
+		<script src="src/knockout.collapse.js" type="text/javascript"></script>
+		<style>
+			a 
+			{ 
+				color: orange; 
+				cursor: pointer;
+				margin: 5px;
+			}
+			div[id*="collapsible"]
+			{
+				border: 1px solid #000;
+				margin: 10px;
+			}
+			h2[id*="title"]
+			{
+				text-shadow: 0 0 1px #fff;
+				font-weight: bold;
+				font-size: 2em;
+			}
+        </style>
+
+		<h2>Simple Collapse Example</h2>
+		<p>You can simply just create collapsibles that will constrain and expand based upon interaction with the element bound./</p>
+		<div id="simple-collapsible">
+			<h2 id="collapsible-title" data-bind="collapse: { content: '#collapsible-content' }">Simple Collapse</h2>
+			<div id="collapsible-content">
+				<h3>Here is some content</h3>
+				<p>Woowoo put whatever you want in the content, forms, pictures etc...</p>
+			</div>
+		</div>
+		
+		<h2>Triggered Collapse Example</h2>
+		<p>You can also create collapsibles that will change based upon an observable boolean./</p>
+		<a id="click-trigger" data-bind="click: function(){ isCollapsed(!isCollapsed()); }">Click here to trigger</a>
+		<div id="triggered-collapsible">
+			<h2 id="triggered-title" data-bind="collapse: { content: '#triggered-content', isCollapsed: isCollapsed }">Triggered Collapse</h2>
+			<div id="triggered-content">
+				<h3>Here is some content</h3>
+				<p>Woowoo put whatever you want in the content, forms, pictures etc...</p>
+			</div>
+		</div>
+		
+        <script>
+
+			function DummyViewModel()
+			{
+				this.isCollapsed = ko.observable(false); 
+			}
+
+            ko.applyBindings(new DummyViewModel());
+        </script>
+	</body>
+</html>
