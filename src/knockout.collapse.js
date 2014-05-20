@@ -27,11 +27,14 @@
 			
 			if(!isCollapsed) { isCollapsed = ko.observable(false); }
 			if(!knockout.isObservable(isCollapsed)) { isCollapsed = ko.observable(isCollapsed); }
-						
-			isCollapsed.subscribe(function(value) {
-				if(value) { knockout.collapse.expand(contentSelector); }
-				else { knockout.collapse.collapse(contentSelector); }
-			});
+
+            var actionChangesInState = function(value) {
+                if(value) { knockout.collapse.expand(contentSelector); }
+                else { knockout.collapse.collapse(contentSelector); }
+            };
+
+			isCollapsed.subscribe(actionChangesInState);
+            isCollapsed.valueHasMutated();
 			
 			$(element).click(function() {
 				isCollapsed(!isCollapsed());
