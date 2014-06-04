@@ -28,17 +28,36 @@
 			if(!isCollapsed) { isCollapsed = ko.observable(false); }
 			if(!knockout.isObservable(isCollapsed)) { isCollapsed = ko.observable(isCollapsed); }
 
-            var actionChangesInState = function(value) {
-                if(value) { knockout.collapse.expand(contentSelector); }
-                else { knockout.collapse.collapse(contentSelector); }
+            var checkValueChange = function(isCollapsed) {
+                if(isCollapsed) {
+                    knockout.collapse.collapse(contentSelector);
+                }
+                else {
+                    knockout.collapse.expand(contentSelector);
+                }
             };
 
-			isCollapsed.subscribe(actionChangesInState);
-            isCollapsed.valueHasMutated();
-			
+            isCollapsed.subscribe(checkValueChange);
+
+            var checkStyleChange = function(isCollapsed) {
+                if(isCollapsed) {
+                    $(element).removeClass(options.expandedClass);
+                    $(element).addClass(options.collapsedClass)
+                }
+                else {
+                    $(element).addClass(options.expandedClass);
+                    $(element).removeClass(options.collapsedClass);
+                }
+            };
+
+            if(options.expandedClass || options.collapsedClass)
+            { isCollapsed.subscribe(checkStyleChange); }
+
 			$(element).click(function() {
 				isCollapsed(!isCollapsed());
 			});
+
+            isCollapsed.valueHasMutated();
 		}
 	};
 

@@ -17,6 +17,9 @@ The available options for this binding are:
 
 * **content** - The jquery selector for the content element
 * **isCollapsed** - An observable to be used for showing and hiding
+* **options** - The options container
+ * **expandedClass** - The class to apply to the trigger element when the area is expanded
+ * **collapsedClass** - The class to apply to the trigger element when the area is collapsed
  
 There is finally a helper method to help you manually collapse and expand sections if needed, although it should be avoided if possible.
 
